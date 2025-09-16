@@ -60,12 +60,19 @@ object nave {
     method elElegidoEstaEnLaNave() = pasajeros.any({pasajero => pasajero.esElElegido()})
 
     method choqueDeLaNave() {
+        pasajeros.forEach({pasajero => pasajero.saltar()})
         pasajeros.clear()
     }
 
-    method aceleracionDeLaNave() {
-        pasajeros.forEach({
-            pasajero => if(not pasajero.esElElegido()) pasajero.saltar()            
-        })
-    }
+    method pasajerosQueNoSonElElegido() = pasajeros.filter({pasajero => not pasajero.esElElegido()})
+
+    // ESTE MODO DE HACERLO NO CUMPLE CON OBJETO MENSAJE, ES MÁS FUNCIONAL
+    // method aceleracionDeLaNave() {
+    //     pasajeros.forEach({
+    //         pasajero => if(not pasajero.esElElegido()) pasajero.saltar()            
+    //     })
+    // }
+
+    // esta forma cumple con objeto mensaje
+    method aceleracionDeLaNave() = self.pasajerosQueNoSonElElegido().forEach({pasajero => pasajero.saltar()})
 }
