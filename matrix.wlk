@@ -53,9 +53,11 @@ object nave {
 
     method pasajeroDeMayorVitalidad() = pasajeros.max({pasajero => pasajero.vitalidad()})
 
-    method esEquilibradaEnVitalidad() = pasajeros.max({pasajero => pasajero.vitalidad()}).vitalidad() / 2 > pasajeros.min({pasajero => pasajero.vitalidad()}).vitalidad()
+    method esEquilibradaEnVitalidad() = not (pasajeros.max({pasajero => pasajero.vitalidad()}).vitalidad() / 2 > pasajeros.min({pasajero => pasajero.vitalidad()}).vitalidad())
     
-    method elElegidoEstaEnLaNave() = pasajeros.find({pasajero => pasajero.esElElegido()})
+    // find devuelve el objeto que encontró o una excepción si no encontró nada
+    // en este caso, any retorna un booleano
+    method elElegidoEstaEnLaNave() = pasajeros.any({pasajero => pasajero.esElElegido()})
 
     method choqueDeLaNave() {
         pasajeros.clear()
